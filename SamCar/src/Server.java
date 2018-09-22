@@ -7,7 +7,7 @@ Server of Samcar
  * @author hadrienjanicot
  */
 
-//Import list
+//Imports list
 import java.net.* ; // Sockets
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +35,24 @@ final public class Server {
             while (currentClientNumber < maximumClientNumber) {
                 Socket socket = sock.accept();
 		currentClientNumber ++;
-		Thread th = new Thread();
+		Thread th = new Thread(() -> {clientFlow(socket);});
 		th.start();
             }
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }     
+    }
+    
+    private void clientFlow(Socket socket){
+        try {
+            
+            //Creation des flux entrées/sorties du client
+            DataInputStream input = new DataInputStream(socket.getInputStream());
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public static Server getSvr () { 
