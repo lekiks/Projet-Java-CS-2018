@@ -24,7 +24,6 @@ final public class Server {
     ServerSocket sock;
     private final int maximumClientNumber = 10000;
     private int currentClientNumber = 0;
-    private List<UserProfil>  listAllUsers;
     
     private Server(){
         waitConnection();
