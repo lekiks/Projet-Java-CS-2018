@@ -10,7 +10,9 @@ Class used to launch the singleton server
 
 public class LaunchSingletonServer {   
     public static void main (String [] args) {
+
         Server server = Server.getSvr();
-        server.setPort(10000);  
+        //server.setPort(10000);  
+
     }
 }
