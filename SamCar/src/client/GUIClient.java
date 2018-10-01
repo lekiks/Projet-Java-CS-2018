@@ -18,7 +18,7 @@ public class GUIClient {
 		System.out.println(port);
 		//end of data from GUI
 		
-		client = new Client (address,port);
+		client = new Client(address,port);
 		
 		
 		identification();
