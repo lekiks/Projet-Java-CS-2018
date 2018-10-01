@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 
 final public class Server {
 
+	public static String VALIDATION= "VALIDATION";
 	private static Server svr ; 
 	private int port = 11002;
 	ServerSocket sock;
@@ -26,6 +27,7 @@ final public class Server {
 	private int currentClientNumber = 0;
 
 	private Server(){
+		System.out.println("le serveur lancé sur port "+port);
 		waitConnection();
 	}
 
@@ -44,11 +46,18 @@ final public class Server {
 	}
 
 	private void clientFlow(Socket socket){
+		DataInputStream input;
+		DataOutputStream output;
 		try {
-
+			//deal with states
+			
+			
 			//Creation des flux entrées/sorties du client
-			DataInputStream input = new DataInputStream(socket.getInputStream());
-			DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+			input = new DataInputStream(socket.getInputStream());
+			String msgIn = input.readUTF();
+			System.out.println(msgIn);
+			output = new DataOutputStream(socket.getOutputStream());
+			output.writeUTF(VALIDATION);
 
 		} catch (IOException ex) {
 			Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
