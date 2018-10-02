@@ -7,8 +7,6 @@ Client of Samcar
  * @author corentinbourlet
  */
 
-
-package client;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -60,9 +58,9 @@ public class Client {
 
 	void sendUserProfile(UserProfil userProfil){
 		try {
-			byte [] userProfilSerie = userProfil.serializable();
+			byte [] userProfilSerie = userProfil.serialize();
 			output = new DataOutputStream(clientSocket.getOutputStream());
-			output.write(userProfilSerie,0,userProfilSerie.size());
+			output.write(userProfilSerie,0,userProfilSerie.length); /** Attention ici .size() modifié en .length **/
 		}
 		catch (IOException e )
 		{

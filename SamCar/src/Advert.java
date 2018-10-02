@@ -20,6 +20,8 @@ public class Advert implements Serializable {
     private Event adEvent;
     private boolean sam;
     private int carSize;
+
+
     private List<UserProfil> adMembers;
 
     @Override
@@ -42,4 +44,21 @@ public class Advert implements Serializable {
         this.carSize = tampon.carSize;
         this.sam = tampon.sam;
     }
+
+    public UserProfil getAdCreator(){
+        return adCreator;
+    }
+
+    public boolean isSam(){
+        return sam;
+    }
+
+    public int getCarSize(){
+        return carSize;
+    }
+
+    public List<UserProfil> getAdMembers() {
+        return adMembers;
+    }
+
 }
