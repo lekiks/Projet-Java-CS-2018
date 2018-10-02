@@ -25,6 +25,8 @@ final public class Server {
     private final int maximumClientNumber = 10000;
     private int currentClientNumber = 0;
     private List<UserProfil>  listAllUsers;
+    private List<Event> listEvents;
+    private List<Advert> listAdverts;
     
     private Server(){
         waitConnection();
@@ -51,16 +53,30 @@ final public class Server {
             DataInputStream input = new DataInputStream(socket.getInputStream());
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
             
+            
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public static Server getSvr () { 
-        if (svr == null)
-            svr = new Server() ; 
-        return svr ;
+    private void addAdvert(Advert ad){
+        listAdverts.add(ad);
     }
-  
-    public void setPort(int p){port = p;}
+    
+    private void addUser(UserProfil user){
+        listAllUsers.add(user);
+    }
+    
+    private void addEvent(Event e){
+        listEvents.add(e);
+    }
+    public static Server getSvr () { 
+		if (svr == null)
+			svr = new Server() ; 
+		return svr ;
+    }
+
+    public void setPort(int p){
+        port = p;
+    }
 }
