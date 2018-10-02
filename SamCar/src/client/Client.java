@@ -58,15 +58,24 @@ public class Client {
 		} 
 	}
 
-	boolean sendUserProfile(UserProfil userProfil){
-		this.sendMessage(userProfil.getFullName());
-		this.sendMessage(userProfil.getEmail());
-		this.sendMessage(userProfil.getUsername());
-		this.sendMessage(userProfil.getPassword());
-		this.sendMessage(userProfil.getAddress());
-		this.sendMessage(userProfil.getPhoneNumber());
-		this.sendMessage(String.valueOf(userProfil.isConnected()));
-		return validation(this.getMessage());
+	void sendUserProfile(UserProfil userProfil){
+		try {
+			byte [] userProfilSerie = userProfil.serializable();
+			output = new DataOutputStream(clientSocket.getOutputStream());
+			output.write(userProfilSerie,0,userProfilSerie.size());
+		}
+		catch (IOException e )
+		{
+			e.printStackTrace();
+		}
+		//		this.sendMessage(userProfil.getFullName());
+		//		this.sendMessage(userProfil.getEmail());
+		//		this.sendMessage(userProfil.getUsername());
+		//		this.sendMessage(userProfil.getPassword());
+		//		this.sendMessage(userProfil.getAddress());
+		//		this.sendMessage(userProfil.getPhoneNumber());
+		//		this.sendMessage(String.valueOf(userProfil.isConnected()));
+		//		return validation(this.getMessage());
 	}
 
 	void serverConnection() {
