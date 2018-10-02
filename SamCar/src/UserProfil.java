@@ -14,10 +14,9 @@ import javax.swing.*;
 public class UserProfil implements Serializable{
     private String fullName;
     private String email;
-    private String pseudo;
     private String password;
     private String address;
-    private String identifier;
+    private String username;
     private ImageIcon profilPicture;
     private boolean connected;
     private DataInputStream input;
@@ -45,16 +44,15 @@ public class UserProfil implements Serializable{
         this.connected = tampon.connected;
         this.email = tampon.email;
         this.fullName = tampon.fullName;
-        this.identifier = tampon.identifier;
+        this.username = tampon.username;
         this.input = tampon.input;
         this.output = tampon.output;
         this.password = tampon.password;
         this.profilPicture = tampon.profilPicture;
-        this.pseudo = tampon.pseudo;
     }
 
     public String getIdentifiant() {
-        return identifier;
+        return username;
     }
 
 }
