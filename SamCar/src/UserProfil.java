@@ -16,8 +16,8 @@ public class UserProfil implements Serializable{
     private String email;
     private String pseudo;
     private String password;
-    private String address;
-    private String identifier;
+    private String adress;
+    private String number;
     private ImageIcon profilPicture;
     private boolean connected;
     private DataInputStream input;
