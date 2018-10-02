@@ -1,5 +1,3 @@
-package client;
-import javax.ejb.Remote;
 
 public class LaunchGUI {
     public static void main (String [] args) {

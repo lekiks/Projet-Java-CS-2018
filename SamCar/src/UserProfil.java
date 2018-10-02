@@ -16,8 +16,8 @@ public class UserProfil implements Serializable{
     private String email;
     private String pseudo;
     private String password;
-    private String adress;
-    private String number;
+    private String address;
+    private String identifier;
     private ImageIcon profilPicture;
     private boolean connected;
     private DataInputStream input;
@@ -52,4 +52,9 @@ public class UserProfil implements Serializable{
         this.profilPicture = tampon.profilPicture;
         this.pseudo = tampon.pseudo;
     }
+
+    public String getIdentifiant() {
+        return identifier;
+    }
+
 }
