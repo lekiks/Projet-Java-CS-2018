@@ -8,42 +8,57 @@ Advert for SamCar
  */
 
 //Imports list
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 
-public class Advert {
-	private UserProfil adCreator;
+public class Advert implements Serializable {
+    private UserProfil adCreator;
     private Event adEvent;
     private boolean sam;
     private int carSize;
+
+
     private List<UserProfil> adMembers;
-    public UserProfil getAdCreator() {
-		return adCreator;
-	}
-	public void setAdCreator(UserProfil adCreator) {
-		this.adCreator = adCreator;
-	}
-	public Event getAdEvent() {
-		return adEvent;
-	}
-	public void setAdEvent(Event adEvent) {
-		this.adEvent = adEvent;
-	}
-	public boolean isSam() {
-		return sam;
-	}
-	public void setSam(boolean sam) {
-		this.sam = sam;
-	}
-	public int getCarSize() {
-		return carSize;
-	}
-	public void setCarSize(int carSize) {
-		this.carSize = carSize;
-	}
-	public List<UserProfil> getAdMembers() {
-		return adMembers;
-	}
-	public void setAdMembers(List<UserProfil> adMembers) {
-		this.adMembers = adMembers;
-	}
+
+    @Override
+    public byte[] serialize() throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream os = new ObjectOutputStream(out);
+        os.writeObject(this);
+        return out.toByteArray();
+    }
+
+    @Override
+    public void deserialize(byte[] data) throws IOException, ClassNotFoundException {
+        ByteArrayInputStream in = new ByteArrayInputStream(data);
+        ObjectInputStream is = new ObjectInputStream(in);
+        Advert tampon = new Advert();
+        tampon = (Advert) is.readObject();
+        this.adCreator = tampon.adCreator;
+        this.adEvent = tampon.adEvent;
+        this.adMembers = tampon.adMembers;
+        this.carSize = tampon.carSize;
+        this.sam = tampon.sam;
+    }
+
+    public UserProfil getAdCreator(){
+        return adCreator;
+    }
+
+    public boolean isSam(){
+        return sam;
+    }
+
+    public int getCarSize(){
+        return carSize;
+    }
+
+    public List<UserProfil> getAdMembers() {
+        return adMembers;
+    }
+
 }
