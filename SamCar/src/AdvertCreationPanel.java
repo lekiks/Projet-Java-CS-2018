@@ -3,6 +3,8 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,7 +14,7 @@ import javax.swing.JTextField;
 
 
 
-public class AdvertCreationPanel extends JPanel implements ActionListener {
+public class AdvertCreationPanel extends JPanel implements ActionListener, MouseListener {
 	JTable placeTableau;
 	private JButton creeButton, cancelButton;
 	private JLabel nbPlacesLabel;
@@ -34,6 +36,7 @@ public class AdvertCreationPanel extends JPanel implements ActionListener {
 		nbPlacesLabel = new JLabel("nb places");
 		nbPlacePanel.add(nbPlacesLabel);
 		nbPlacesText = new JTextField("write here");
+		nbPlacesText.addMouseListener(this);
 		nbPlacePanel.add(nbPlacesText);
 
 
@@ -77,4 +80,31 @@ public class AdvertCreationPanel extends JPanel implements ActionListener {
 	}
 
 
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		Object mouseSource = e.getSource();
+		if (mouseSource == nbPlacesText){
+			nbPlacesText.setText("");
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
+	}
 }
