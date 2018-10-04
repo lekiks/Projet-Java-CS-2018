@@ -1,4 +1,5 @@
-/*
+
+/**
 Advert for SamCar
  */
 
@@ -8,6 +9,7 @@ Advert for SamCar
  */
 
 //Imports list
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,10 +28,6 @@ public class Advert implements SerializableSC,Serializable {
         return adName;
     }
 
-    public UserProfil getAdCreator() {
-        return adCreator;
-    }
-
     public Event getAdEvent() {
         return adEvent;
     }
@@ -45,7 +43,6 @@ public class Advert implements SerializableSC,Serializable {
     public List<UserProfil> getAdMembers() {
         return adMembers;
     }
-
     private UserProfil adCreator;
 
     public UserProfil getAdCreator() {

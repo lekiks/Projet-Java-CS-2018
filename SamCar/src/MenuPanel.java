@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 public class MenuPanel extends JPanel implements ActionListener {
 
-    private JButton addTrip, searchTrip, confirmTrip, deconnect;
+    private JButton addTrip, searchTrip, confirmTrip, disconnect;
     private LaunchGUI launchGUILocal; //Permet de garder une référence locale sur le launcher afin d'actualiser la View
     private Client clientLocal;
     private GUIClient guiClientLocal;
@@ -49,10 +49,10 @@ public class MenuPanel extends JPanel implements ActionListener {
         JSeparator separator1 = new JSeparator(SwingConstants.HORIZONTAL);
         this.add(separator1);
 
-        deconnect = new JButton("Deconnect");
-        deconnect.setAlignmentX(this.CENTER_ALIGNMENT);
-        deconnect.addActionListener(this);
-        this.add(deconnect);
+        disconnect = new JButton("Deconnect");
+        disconnect.setAlignmentX(this.CENTER_ALIGNMENT);
+        disconnect.addActionListener(this);
+        this.add(disconnect);
 
         this.add(Box.createVerticalStrut(20));//espace
     }
@@ -64,12 +64,13 @@ public class MenuPanel extends JPanel implements ActionListener {
             launchGUILocal.refreshPane(guiClientLocal.v4);
         }
         else if(source == searchTrip){
-            //Aller view 5
+            launchGUILocal.refreshPane(guiClientLocal.v5);
         }
         else if(source == confirmTrip){
-            //Aller view 6
+            launchGUILocal.refreshPane(guiClientLocal.v6);
         }
-        else if(source == deconnect){
+        else if(source == disconnect){
+            //clientLocal.serverDisconnect();
             launchGUILocal.refreshPane(guiClientLocal.v1);
         }
         else{

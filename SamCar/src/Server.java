@@ -37,9 +37,10 @@ final public class Server {
             sock = new ServerSocket(port);
             while (currentClientNumber < maximumClientNumber) {
                 Socket socket = sock.accept();
-		currentClientNumber ++;
-		Thread th = new Thread(() -> {clientFlow(socket);});
-		th.start();
+                System.out.println("ma bite");
+                currentClientNumber ++;
+                Thread th = new Thread(() -> {clientFlow(socket);});
+                th.start();
             }
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
@@ -49,12 +50,14 @@ final public class Server {
     private void clientFlow(Socket socket){
         try {
             
-            //Creation des flux entrées/sorties du clientLocal
+            //Creation des flux entrées/sorties du client
             DataInputStream input = new DataInputStream(socket.getInputStream());
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
-    
+            System.out.println("ma bite");
             int code = input.readInt();
+            System.out.println("ma bite");
             codeCheck(code, output);
+            System.out.println("ma bite");
             caseSelection(code, input, output);   
         } catch (IOException ex) {   
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);

@@ -87,7 +87,7 @@ public class InscriptionPanel extends JPanel implements ActionListener, MouseLis
 
 		BufferedImage image = null;
 		try {
-			image = ImageIO.read(new File("/logo_samcar.jpg"));
+			image = ImageIO.read(new File("/Users/hadrienjanicot/logo_samcar.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,7 +117,6 @@ public class InscriptionPanel extends JPanel implements ActionListener, MouseLis
 
 		//left panel
 
-
 	}
 	
 	@Override
@@ -125,7 +124,9 @@ public class InscriptionPanel extends JPanel implements ActionListener, MouseLis
 		String composant = e.getActionCommand();
 		if( e.getSource() == signUpButton ) {
 			String tempPassword = passwordTextField.getText();
-			if (tempPassword == passwordConfirmTextField.getText()) {
+			System.out.println(tempPassword);
+			System.out.println(passwordConfirmTextField.getText());
+			if (tempPassword.equals(passwordConfirmTextField.getText())) {
 				System.out.println("bouton3 marche");
 				clientLocal.sendIDRequest(1);
 				UserProfil usrProfil = new UserProfil();
