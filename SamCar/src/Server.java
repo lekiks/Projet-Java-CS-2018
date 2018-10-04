@@ -9,7 +9,6 @@ Server of Samcar
 
 //Imports list
 import java.net.* ; // Sockets
-import java.util.ArrayList;
 import java.util.List;
 import java.io.* ; // Streams
 import java.util.logging.Level;
@@ -27,7 +26,8 @@ final public class Server {
     private List<UserProfil>  listAllUsers;
     private List<Event> listEvents;
     private List<Advert> listAdverts;
-    
+    File fileUser = new File("/Users/hadrienjanicot/Documents/server/UserProfil.txt");
+    File fileAd = new File("/Users/hadrienjanicot/Documents/server/Advert.txt");
     private Server(){
         waitConnection();
     }
@@ -37,9 +37,10 @@ final public class Server {
             sock = new ServerSocket(port);
             while (currentClientNumber < maximumClientNumber) {
                 Socket socket = sock.accept();
-		currentClientNumber ++;
-		Thread th = new Thread(() -> {clientFlow(socket);});
-		th.start();
+                System.out.println("ma bite");
+                currentClientNumber ++;
+                Thread th = new Thread(() -> {clientFlow(socket);});
+                th.start();
             }
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
@@ -49,12 +50,14 @@ final public class Server {
     private void clientFlow(Socket socket){
         try {
             
-            //Creation des flux entrées/sorties du clientLocal
+            //Creation des flux entrées/sorties du client
             DataInputStream input = new DataInputStream(socket.getInputStream());
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
-    
+            System.out.println("ma bite");
             int code = input.readInt();
+            System.out.println("ma bite");
             codeCheck(code, output);
+            System.out.println("ma bite");
             caseSelection(code, input, output);   
         } catch (IOException ex) {   
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,12 +74,13 @@ final public class Server {
     }
     
     private void caseSelection(int code,DataInputStream input, DataOutputStream output) throws IOException {
+       UserProfil user = new UserProfil();
     switch(code) {
 	case 0:{
             String pseudo,password;
             pseudo = input.readUTF();
             password = input.readUTF();
-            acknowledgement(connection(pseudo,password),output);
+            acknowledgement(connection(pseudo,password,user),output);
         }
 	case 1:{
             UserProfil newProfil = new UserProfil();
@@ -85,6 +89,9 @@ final public class Server {
             i = input.read(b);
             try {
                 newProfil.deserialize(b);
+                listAllUsers.add(newProfil);
+                user = newProfil;
+                
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -110,9 +117,14 @@ final public class Server {
             }
             String eventChose = null;
             eventChose = input.readUTF();
-            acknowledgement(true,output);
+            acknowledgement(addUser(eventChose,user),output);
 	case 4:
-            
+            List<Advert> userAdds = addsOwner(user);
+            output.writeInt(userAdds.size());
+            for(Advert a: userAdds){
+                output.write(a.serialize(), 0, a.serialize().length);
+            }
+            acknowledgement(true,output);
 	case 5:
 			//eventCreate();
     }
@@ -139,17 +151,19 @@ final public class Server {
         port = p;
     }
     
-    private boolean connection(String pseudo,String password){
+    private boolean connection(String pseudo,String password, UserProfil user){
         for(UserProfil p: listAllUsers){
+            user = p;
             return (p.getPseudo().equals(pseudo))&&(p.getPassword().equals(password));
         }
         return false;
     }
     
-    private boolean addUser(String adName){
+    private boolean addUser(String adName, UserProfil user){
         for(Advert a: listAdverts){
-            if(a.getAdName() == adName){
-                
+            if(a.getAdName().equals(adName)){
+                a.addAdMember(user);
+                return true;
             }
         }
         return false;
@@ -166,5 +180,96 @@ final public class Server {
         } catch (IOException ex) {   
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private List<Advert> addsOwner(UserProfil owner) {
+        List<Advert> ownerAdList = null;
+        listAdverts.stream().filter((a) -> (a.getAdCreator() == owner)).forEachOrdered(ownerAdList::add);
+        return ownerAdList;
+    }
+    
+    private void readUserFile(){
+        FileInputStream f;
+        try {
+            f = new FileInputStream(fileUser);
+            try (ObjectInputStream o = new ObjectInputStream(f)) {
+                while(o.available() > 0){
+                    listAllUsers.add((UserProfil) o.readObject());
+                }
+            }
+           f.close();
+        } catch (FileNotFoundException e) {
+			System.out.println("File not found");
+	} catch(EOFException e){
+            System.out.println("Fin de fichier");
+        } catch (IOException e) {
+			System.out.println("Error initializing stream");
+	} catch (ClassNotFoundException ex) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void readAdFile(){
+        FileInputStream f;
+        try {
+            f = new FileInputStream(fileAd);
+            try (ObjectInputStream o = new ObjectInputStream(f)) {
+                while(o.available() > 0){
+                    listAdverts.add((Advert) o.readObject());
+                }
+            }
+           f.close();
+        } catch (FileNotFoundException e) {
+			System.out.println("File not found");
+	} catch(EOFException e){
+            System.out.println("Fin de fichier");
+        } catch (IOException e) {
+			System.out.println("Error initializing stream");
+	} catch (ClassNotFoundException ex) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    private void writeUserFile(){
+        FileOutputStream f;
+        try {
+            f = new FileOutputStream(fileUser);
+            try (ObjectOutputStream o = new ObjectOutputStream(f)) {
+                for(UserProfil u: listAllUsers){
+                    o.writeObject(u);
+                }
+            }
+            f.close();
+           
+       } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+	}
+        catch (IOException e) {
+            System.out.println("Error initializing stream");
+	}
+    }
+    
+    private void writeAdFile(){
+        FileOutputStream f;
+        try {
+            f = new FileOutputStream(fileAd);
+            try (ObjectOutputStream o = new ObjectOutputStream(f)) {
+                for(Advert a: listAdverts){
+                    o.writeObject(a);
+                }
+                o.close();
+            }
+            f.close();
+           
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+	} catch (IOException e) {
+            System.out.println("Error initializing stream");
+	}
+    }
+    
+    private boolean existingFile(File f){
+        return f.exists() && !f.isDirectory();
     }
 }

@@ -11,7 +11,7 @@ import java.io.IOException;
  *
  * @author hadrienjanicot
  */
-public interface Serializable {
+public interface SerializableSC {
      byte[] serialize() throws IOException;
      void deserialize(byte[] data) throws IOException, ClassNotFoundException;  
 }

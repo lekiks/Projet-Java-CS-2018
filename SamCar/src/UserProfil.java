@@ -10,41 +10,97 @@ Data about each users
 // Imports list
 import java.io.*;
 import javax.swing.*;
+import java.io.Serializable;
 
-public class UserProfil implements Serializable{
+public class UserProfil implements SerializableSC, Serializable{
+    
+    private static final long serialVersionUID = 1L;
+     
     private String fullName;
-    private String email;
+    public String getFullName() {
+		return fullName;
+	}
 
-    private String pseudo;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+
+	public ImageIcon getProfilPicture() {
+		return profilPicture;
+	}
+
+	public void setProfilPicture(ImageIcon profilPicture) {
+		this.profilPicture = profilPicture;
+	}
+
+	public boolean isConnected() {
+		return connected;
+	}
+
+	public void setConnected(boolean connected) {
+		this.connected = connected;
+	}
+
+	public DataInputStream getInput() {
+		return input;
+	}
+
+	public void setInput(DataInputStream input) {
+		this.input = input;
+	}
+
+	public DataOutputStream getOutput() {
+		return output;
+	}
+
+	public void setOutput(DataOutputStream output) {
+		this.output = output;
+	}
+
+	public void setUsername(String pseudo) {
+		this.username = pseudo;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	private String email;
+    private String username;
 
     public String getPseudo() {
-        return pseudo;
+        return username;
     }
 
     public String getPassword() {
         return password;
     }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     private String password;
     private String address;
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    private String username;
+    private String identifier;
     private ImageIcon profilPicture;
     private boolean connected;
     private DataInputStream input;
@@ -72,15 +128,16 @@ public class UserProfil implements Serializable{
         this.connected = tampon.connected;
         this.email = tampon.email;
         this.fullName = tampon.fullName;
-        this.username = tampon.username;
+        this.identifier = tampon.identifier;
         this.input = tampon.input;
         this.output = tampon.output;
         this.password = tampon.password;
         this.profilPicture = tampon.profilPicture;
+        this.username = tampon.username;
     }
 
     public String getIdentifiant() {
-        return username;
+        return identifier;
     }
 
 }

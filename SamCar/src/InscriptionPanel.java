@@ -87,7 +87,7 @@ public class InscriptionPanel extends JPanel implements ActionListener, MouseLis
 
 		BufferedImage image = null;
 		try {
-			image = ImageIO.read(new File("/logo_samcar.jpg"));
+			image = ImageIO.read(new File("/Users/hadrienjanicot/logo_samcar.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
