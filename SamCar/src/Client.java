@@ -169,7 +169,8 @@ public class Client {
 	}
 
 	boolean identification(String username,String password) {
-		//envoie username 
+		//envoie username
+		this.sendIDRequest(0);
 		this.sendMessage(username+";"+password);
 		return validation(this.getMessage());
 	}
