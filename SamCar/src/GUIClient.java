@@ -29,6 +29,8 @@ public class GUIClient extends JPanel implements ActionListener, MouseListener {
 	LoginPanel v1;
 	InscriptionPanel v2;
 	AdvertCreationPanel v4;
+	AdvertValidatePanel v6;
+	AdvertChoicePanel v5;
 
 
 	
@@ -43,7 +45,7 @@ public class GUIClient extends JPanel implements ActionListener, MouseListener {
 		//end of connection data
 
 		client = new Client(address,port);
-		client.serverConnection();
+		//client.serverConnection();  //Connection au serveur
 
 		/**
 		 * On déclare ici toutes les views entre lesquels nous allons switcher
@@ -52,6 +54,8 @@ public class GUIClient extends JPanel implements ActionListener, MouseListener {
 		v2 = new InscriptionPanel(launchGUILocal, client, this);
 		v3 = new MenuPanel(launchGUILocal, client, this);
 		v4 = new AdvertCreationPanel(launchGUILocal, client, this);
+		v5 = new AdvertChoicePanel(launchGUILocal, client, this);
+		v6 = new AdvertValidatePanel(launchGUILocal, client, this);
 
 
 		/**
@@ -70,7 +74,7 @@ public class GUIClient extends JPanel implements ActionListener, MouseListener {
 			e.printStackTrace();
 		}
 		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-		add(picLabel);
+		add(picLabel, BorderLayout.CENTER);
 
 		//North Panel
 		JPanel northV1 = new JPanel();
@@ -132,7 +136,7 @@ public class GUIClient extends JPanel implements ActionListener, MouseListener {
 		if (source == connect){
 			//username = usernameIn.getText();
 			//password = new String(passwordIn.getPassword());
-			identification();
+			//identification();
 			//if connection => view3
 			launchGUILocal.refreshPane(v3);
 		}

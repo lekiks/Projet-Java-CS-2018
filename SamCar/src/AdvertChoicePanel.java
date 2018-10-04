@@ -1,7 +1,6 @@
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -11,28 +10,54 @@ import javax.swing.JTable;
 
 public class AdvertChoicePanel extends JPanel implements ActionListener {
 	JTable tableau;
-	Client client;
-	JButton validateButton;
-	JButton chargeDataButton;
+	private JButton validateButton ,chargeDataButton, cancelButton;
 	private List<Advert> listAdverts;
+
+	private Client clientLocal;
+	private LaunchGUI launchGUILocal;
+	private GUIClient guiClientLocal;
 	
-	AdvertChoicePanel(Client client){
-		this.client = client;
+	AdvertChoicePanel(LaunchGUI launchGUI, Client client, GUIClient guiClient){
+		this.launchGUILocal = launchGUI;
+		this.clientLocal = client;
+		this.guiClientLocal = guiClient;
+
+		//Layout
+		setLayout(new BorderLayout());
+
+		//North Panel
+		JPanel northPanel = new JPanel();
+		//envoie du choix
+		chargeDataButton = new JButton("chargement des donnes");
+		chargeDataButton.addActionListener(this);
+		northPanel.add(chargeDataButton);
+
+		validateButton = new JButton("Confirm");
+		validateButton.addActionListener(this);
+		northPanel.add(validateButton);
+
+		add(northPanel, BorderLayout.NORTH);
+
+
+		//Center Panel
+		JPanel centerPanel = new JPanel();
 		Object[][] donnees = {};
 		String[] entetes = {"nom","nbre de place","horaire"};
-		tableau = new JTable(donnees, entetes);
-		this.add (tableau);
-		//envoie du choix
 
-		validateButton.setText("validate");
-		validateButton.addActionListener(this);
-		
-		
-		chargeDataButton.setText("chargement des donnes");
-		chargeDataButton.addActionListener(this);
-		
-		this.add(chargeDataButton);
-		this.add(validateButton);
+
+		tableau = new JTable(donnees, entetes);
+		centerPanel.add (tableau);
+		add(centerPanel, BorderLayout.CENTER);
+
+		//South Panel
+		JPanel southPanel = new JPanel();
+		cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(this);
+		southPanel.add(cancelButton);
+
+		add(southPanel, BorderLayout.SOUTH);
+
+
 	}
 
 
@@ -41,20 +66,23 @@ public class AdvertChoicePanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==validateButton) {
-			client.sendIDRequest(3);
+			clientLocal.sendIDRequest(3);
 
-			int tailleListAdvert = client.getInt();
+			int tailleListAdvert = clientLocal.getInt();
 			
 			for (int i =0; i<tailleListAdvert; i++) {
 				//listAdverts.add(clientLocal.getAdvert());
 			}
-			if (!client.getValidation())
+			if (!clientLocal.getValidation())
 			{
 				System.out.println("erreur inscription");
 			}
 			else {
-				//aller à page connexion
+				launchGUILocal.refreshPane(guiClientLocal.v3);
 			}
+		}
+		else if(e.getSource() == cancelButton){
+			launchGUILocal.refreshPane(guiClientLocal.v3);
 		}
 		
 		if (e.getSource()==validateButton) {

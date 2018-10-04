@@ -15,10 +15,10 @@ import javax.swing.JTextField;
 public class AdvertCreationPanel extends JPanel implements ActionListener {
 	JTable placeTableau;
 	private JButton creeButton, cancelButton;
-	JLabel nbPlacesLabel;
-	JTextField nbPlacesText;
-	JPanel nbPlacePanel;
-	Client clientLocal;
+	private JLabel nbPlacesLabel;
+	private JTextField nbPlacesText;
+	private JPanel nbPlacePanel;
+	private Client clientLocal;
 	private LaunchGUI launchGUILocal;
 	private GUIClient guiClientLocal;
 

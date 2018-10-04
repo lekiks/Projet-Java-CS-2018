@@ -35,7 +35,7 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
             e.printStackTrace();
         }
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-        add(picLabel);
+        add(picLabel, BorderLayout.CENTER);
 
         //North Panel
         JPanel northV1 = new JPanel();

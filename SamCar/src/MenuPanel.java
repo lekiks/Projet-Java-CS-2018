@@ -64,10 +64,10 @@ public class MenuPanel extends JPanel implements ActionListener {
             launchGUILocal.refreshPane(guiClientLocal.v4);
         }
         else if(source == searchTrip){
-            //Aller view 5
+            launchGUILocal.refreshPane(guiClientLocal.v5);
         }
         else if(source == confirmTrip){
-            //Aller view 6
+            launchGUILocal.refreshPane(guiClientLocal.v6);
         }
         else if(source == deconnect){
             launchGUILocal.refreshPane(guiClientLocal.v1);
