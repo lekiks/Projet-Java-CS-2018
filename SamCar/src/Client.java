@@ -92,6 +92,7 @@ public class Client {
 			byte [] userProfilSerie = userProfil.serialize();
 			output.write(userProfilSerie,0,userProfilSerie.length);
 			output.flush();
+			
 		}
 		catch (IOException e )
 		{

@@ -87,7 +87,7 @@ public class InscriptionPanel extends JPanel implements ActionListener, MouseLis
 
 		BufferedImage image = null;
 		try {
-			image = ImageIO.read(new File("/Users/hadrienjanicot/logo_samcar.jpg"));
+			image = ImageIO.read(new File("/logo_samcar.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -118,6 +118,17 @@ public class InscriptionPanel extends JPanel implements ActionListener, MouseLis
 		//left panel
 
 	}
+
+	void userCreation(String tempPassword){
+		System.out.println("bouton3 marche");
+		clientLocal.sendIDRequest(1);
+		UserProfil usrProfil = new UserProfil();
+		usrProfil.setFullName(fullNameTextField.getText());
+		usrProfil.setEmail(emailTextField.getText());
+		usrProfil.setUsername(usernameTextField.getText());
+		usrProfil.setPassword(tempPassword);
+		clientLocal.sendUserProfile(usrProfil);
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -127,14 +138,7 @@ public class InscriptionPanel extends JPanel implements ActionListener, MouseLis
 			System.out.println(tempPassword);
 			System.out.println(passwordConfirmTextField.getText());
 			if (tempPassword.equals(passwordConfirmTextField.getText())) {
-				System.out.println("bouton3 marche");
-				clientLocal.sendIDRequest(1);
-				UserProfil usrProfil = new UserProfil();
-				usrProfil.setFullName(fullNameTextField.getText());
-				usrProfil.setEmail(emailTextField.getText());
-				usrProfil.setUsername(usernameTextField.getText());
-				usrProfil.setPassword(tempPassword);
-				clientLocal.sendUserProfile(usrProfil);
+				userCreation(tempPassword);
 				
 				if (!clientLocal.getValidation())
 				{

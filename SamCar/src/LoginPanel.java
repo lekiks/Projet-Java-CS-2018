@@ -30,7 +30,7 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
 
         BufferedImage myPicture = null;
         try {
-            myPicture = ImageIO.read(new File("/Users/hadrienjanicot/logo_samcar.jpg"));
+            myPicture = ImageIO.read(new File("/logo_samcar.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }

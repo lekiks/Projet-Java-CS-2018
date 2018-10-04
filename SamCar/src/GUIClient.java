@@ -45,7 +45,7 @@ public class GUIClient extends JPanel implements ActionListener, MouseListener {
 		//end of connection data
 
 		client = new Client(address,port);
-		client.serverConnection();
+		//client.serverConnection();
 
 		/**
 		 * On déclare ici toutes les views entre lesquels nous allons switcher
@@ -69,7 +69,7 @@ public class GUIClient extends JPanel implements ActionListener, MouseListener {
 
 		BufferedImage myPicture = null;
 		try {
-			myPicture = ImageIO.read(new File("/Users/hadrienjanicot/logo_samcar.jpg"));
+			myPicture = ImageIO.read(new File("/logo_samcar.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -108,12 +108,7 @@ public class GUIClient extends JPanel implements ActionListener, MouseListener {
 
 	}
 	
-	
-	void inscriptionRequest(){
-		username= "Dewey";
-		password = "jeLeveTaMere";
-		client.identification(username,password);
-	}
+
 	
 
 	
@@ -121,11 +116,13 @@ public class GUIClient extends JPanel implements ActionListener, MouseListener {
 	void identification() {
 		
 		//data from GUI
-		username = "corentin";
-		password = "bourlet";
+		username = usernameIn.getText();
+		password = new String(passwordIn.getPassword());
 		//end of Data from GUI
-		
-		client.identification(username,password);
+
+		System.out.println(username);
+		System.out.println(password);
+		//client.identification(username,password);
 		
 	}
 
@@ -134,9 +131,8 @@ public class GUIClient extends JPanel implements ActionListener, MouseListener {
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source == connect){
-			//username = usernameIn.getText();
-			//password = new String(passwordIn.getPassword());
-			//identification();
+
+			identification();
 			//if connection => view3
 			launchGUILocal.refreshPane(v3);
 		}
