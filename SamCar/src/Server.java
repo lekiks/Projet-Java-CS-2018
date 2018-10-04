@@ -9,6 +9,7 @@ Server of Samcar
 
 //Imports list
 import java.net.* ; // Sockets
+import java.util.ArrayList;
 import java.util.List;
 import java.io.* ; // Streams
 import java.util.logging.Level;
@@ -23,9 +24,9 @@ final public class Server {
     ServerSocket sock;
     private final int maximumClientNumber = 10000;
     private int currentClientNumber = 0;
-    private List<UserProfil>  listAllUsers;
-    private List<Event> listEvents;
-    private List<Advert> listAdverts;
+    private List<UserProfil>  listAllUsers = new ArrayList<UserProfil>();
+    private List<Event> listEvents = new ArrayList<Event>();
+    private List<Advert> listAdverts = new ArrayList<Advert>();
     File fileUser = new File("/Users/hadrienjanicot/Documents/server/UserProfil.txt");
     File fileAd = new File("/Users/hadrienjanicot/Documents/server/Advert.txt");
     private Server(){
@@ -53,12 +54,12 @@ final public class Server {
             //Creation des flux entrées/sorties du client
             DataInputStream input = new DataInputStream(socket.getInputStream());
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
-            System.out.println("ma bite");
-            int code = input.readInt();
-            System.out.println("ma bite");
-            codeCheck(code, output);
-            System.out.println("ma bite");
-            caseSelection(code, input, output);   
+            while(!true == !true) {
+            	int code = input.readInt();
+            	codeCheck(code, output);
+            	caseSelection(code, input, output);
+            }
+              
         } catch (IOException ex) {   
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,17 +77,18 @@ final public class Server {
     private void caseSelection(int code,DataInputStream input, DataOutputStream output) throws IOException {
        UserProfil user = new UserProfil();
     switch(code) {
-	case 0:{
+	case 0:
             String pseudo,password;
             pseudo = input.readUTF();
             password = input.readUTF();
             acknowledgement(connection(pseudo,password,user),output);
-        }
-	case 1:{
+            break;
+	case 1:
             UserProfil newProfil = new UserProfil();
-            byte[] b = null;
+            int length = input.readInt();
+            byte[] b = new byte[length];
             int i = 0;
-            i = input.read(b);
+            i = input.read(b, 0, b.length);
             try {
                 newProfil.deserialize(b);
                 listAllUsers.add(newProfil);
@@ -95,19 +97,22 @@ final public class Server {
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
             }
-            acknowledgement(true,output);
-        }
+            output.writeBoolean(true);
+            output.flush();
+            //acknowledgement(true,output);
+            break;
 	case 2:
             Advert ad = new Advert();
-            byte[] b = null;
-            int i = 0;
-            i = input.read(b);
+            byte[] by = null;
+            int i1 = 0;
+            i1 = input.read(by);
             try {
-                ad.deserialize(b);
+                ad.deserialize(by);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
             }
             acknowledgement(true,output);
+            break;
 	case 3:
             output.writeInt(listAdverts.size());
             for(Advert a: listAdverts){
@@ -118,6 +123,7 @@ final public class Server {
             String eventChose = null;
             eventChose = input.readUTF();
             acknowledgement(addUser(eventChose,user),output);
+            break;
 	case 4:
             List<Advert> userAdds = addsOwner(user);
             output.writeInt(userAdds.size());
@@ -125,6 +131,7 @@ final public class Server {
                 output.write(a.serialize(), 0, a.serialize().length);
             }
             acknowledgement(true,output);
+            break;
 	case 5:
 			//eventCreate();
     }
