@@ -11,6 +11,9 @@ import java.io.IOException;
 
 public class LoginPanel extends JPanel implements ActionListener, MouseListener {
 
+    private String username, password;
+
+
     private JButton connect, signUp;
     private LaunchGUI launchGUILocal;
     private JTextField usernameIn;
@@ -62,11 +65,24 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
         southV1.add(signUp);
     }
 
+    void identification() {
+
+        //data from GUI
+        username = usernameIn.getText();
+        password = new String(passwordIn.getPassword());
+        //end of Data from GUI
+
+        System.out.println(username);
+        System.out.println(password);
+        clientLocal.identification(username,password);
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == connect){
-            //Call connection method
+            identification();
 
             //if connection => view3
             launchGUILocal.refreshPane(guiClientLocal.v3);

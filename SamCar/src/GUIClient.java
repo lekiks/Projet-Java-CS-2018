@@ -122,7 +122,7 @@ public class GUIClient extends JPanel implements ActionListener, MouseListener {
 
 		System.out.println(username);
 		System.out.println(password);
-		//client.identification(username,password);
+		client.identification(username,password);
 		
 	}
 
