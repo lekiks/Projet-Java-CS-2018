@@ -42,6 +42,8 @@ public class Client {
 		try {
 
 			boolean  check = input.readBoolean();
+			check = input.readBoolean();
+			System.out.println("ma bite");
 			return check; 
 		}
 		catch (IOException e )
@@ -90,6 +92,7 @@ public class Client {
 	public void sendUserProfile(UserProfil userProfil){
 		try {
 			byte [] userProfilSerie = userProfil.serialize();
+			output.writeInt(userProfilSerie.length);
 			output.write(userProfilSerie,0,userProfilSerie.length);
 			output.flush();
 		}
