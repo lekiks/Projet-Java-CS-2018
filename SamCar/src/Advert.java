@@ -16,13 +16,20 @@ import java.io.ObjectOutputStream;
 import java.util.*;
 
 public class Advert implements Serializable {
+    private String adName;
+
+    public String getAdName() {
+        return adName;
+    }
     private UserProfil adCreator;
     private Event adEvent;
     private boolean sam;
     private int carSize;
-
-
     private List<UserProfil> adMembers;
+    
+    public boolean checkSize(){
+        return adMembers.size() < carSize;
+    }
 
     @Override
     public byte[] serialize() throws IOException {
@@ -39,26 +46,10 @@ public class Advert implements Serializable {
         Advert tampon = new Advert();
         tampon = (Advert) is.readObject();
         this.adCreator = tampon.adCreator;
+        this.adName = tampon.adName;
         this.adEvent = tampon.adEvent;
         this.adMembers = tampon.adMembers;
         this.carSize = tampon.carSize;
         this.sam = tampon.sam;
     }
-
-    public UserProfil getAdCreator(){
-        return adCreator;
-    }
-
-    public boolean isSam(){
-        return sam;
-    }
-
-    public int getCarSize(){
-        return carSize;
-    }
-
-    public List<UserProfil> getAdMembers() {
-        return adMembers;
-    }
-
 }
