@@ -15,6 +15,14 @@ public class UserProfil implements Serializable{
     private String fullName;
     private String email;
     private String pseudo;
+
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public String getPassword() {
+        return password;
+    }
     private String password;
     private String address;
     private String identifier;
@@ -36,7 +44,7 @@ public class UserProfil implements Serializable{
     }
 
     @Override
-    public void deserialize(byte[] data) throws IOException, ClassNotFoundException {
+    public void deserialize(byte[] data) throws IOException, ClassNotFoundException{
         ByteArrayInputStream in = new ByteArrayInputStream(data);
         ObjectInputStream is = new ObjectInputStream(in);
         UserProfil tampon = new UserProfil();
