@@ -2,12 +2,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class View3 extends JPanel implements ActionListener {
+public class MenuPanel extends JPanel implements ActionListener {
 
     private JButton addTrip, searchTrip, confirmTrip, deconnect;
     private LaunchGUI launchGUILocal; //Permet de garder une référence locale sur le launcher afin d'actualiser la View
 
-    View3(LaunchGUI launchGUI){
+    MenuPanel(LaunchGUI launchGUI){
         this.launchGUILocal = launchGUI;
 
         //Layout
@@ -66,7 +66,7 @@ public class View3 extends JPanel implements ActionListener {
             launchGUILocal.refreshPane(launchGUILocal.v1);
         }
         else{
-            System.out.println("Error in the View3 file");
+            System.out.println("Error in the MenuPanel file");
         }
     }
 }

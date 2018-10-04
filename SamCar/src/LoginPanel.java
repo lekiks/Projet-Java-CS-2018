@@ -7,14 +7,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class View1  extends JPanel implements ActionListener {
+public class LoginPanel extends JPanel implements ActionListener {
 
     private JButton connect, signUp;
     private LaunchGUI launchGUILocal;
     private JTextField usernameIn;
     private JPasswordField passwordIn;
 
-    View1(LaunchGUI launchGUI){
+    LoginPanel(LaunchGUI launchGUI){
         this.launchGUILocal = launchGUI;
 
         //Layout

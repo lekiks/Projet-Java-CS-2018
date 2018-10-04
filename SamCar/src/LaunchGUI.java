@@ -2,8 +2,8 @@ import javax.swing.*;
 
 public class LaunchGUI extends JFrame {
     GUIClient guiClient;
-    View3 v3;
-    View1 v1;
+    MenuPanel v3;
+    LoginPanel v1;
 
     LaunchGUI(){
         //IHM
@@ -18,8 +18,8 @@ public class LaunchGUI extends JFrame {
         /**
          * On déclare ici toutes les views entre lesquels nous allons switcher
          */
-        v3 = new View3(this);
-        v1 = new View1(this);
+        v3 = new MenuPanel(this);
+        v1 = new LoginPanel(this);
     }
 
     public void refreshPane(JPanel newPanel){
