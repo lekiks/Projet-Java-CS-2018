@@ -2,8 +2,7 @@ import javax.swing.*;
 
 public class LaunchGUI extends JFrame {
     GUIClient guiClient;
-    MenuPanel v3;
-    LoginPanel v1;
+
 
     LaunchGUI(){
         //IHM
@@ -15,11 +14,7 @@ public class LaunchGUI extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        /**
-         * On déclare ici toutes les views entre lesquels nous allons switcher
-         */
-        v3 = new MenuPanel(this);
-        v1 = new LoginPanel(this);
+
     }
 
     public void refreshPane(JPanel newPanel){

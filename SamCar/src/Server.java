@@ -49,7 +49,7 @@ final public class Server {
     private void clientFlow(Socket socket){
         try {
             
-            //Creation des flux entrées/sorties du client
+            //Creation des flux entrées/sorties du clientLocal
             DataInputStream input = new DataInputStream(socket.getInputStream());
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
     

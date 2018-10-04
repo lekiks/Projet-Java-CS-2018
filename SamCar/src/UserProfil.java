@@ -14,8 +14,7 @@ import javax.swing.*;
 public class UserProfil implements Serializable{
     private String fullName;
     private String email;
-<<<<<<< HEAD
-=======
+
     private String pseudo;
 
     public String getPseudo() {
@@ -25,9 +24,26 @@ public class UserProfil implements Serializable{
     public String getPassword() {
         return password;
     }
->>>>>>> master
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     private String password;
     private String address;
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     private String username;
     private ImageIcon profilPicture;
     private boolean connected;

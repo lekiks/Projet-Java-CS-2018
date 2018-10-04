@@ -6,9 +6,16 @@ public class MenuPanel extends JPanel implements ActionListener {
 
     private JButton addTrip, searchTrip, confirmTrip, deconnect;
     private LaunchGUI launchGUILocal; //Permet de garder une référence locale sur le launcher afin d'actualiser la View
+    private Client clientLocal;
+    private GUIClient guiClientLocal;
 
-    MenuPanel(LaunchGUI launchGUI){
+
+
+
+    MenuPanel(LaunchGUI launchGUI, Client client, GUIClient guiClient){
         this.launchGUILocal = launchGUI;
+        this.clientLocal = client;
+        this.guiClientLocal = guiClient;
 
         //Layout
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -54,7 +61,7 @@ public class MenuPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == addTrip){
-            //Aller view 4
+            launchGUILocal.refreshPane(guiClientLocal.v4);
         }
         else if(source == searchTrip){
             //Aller view 5
@@ -63,7 +70,7 @@ public class MenuPanel extends JPanel implements ActionListener {
             //Aller view 6
         }
         else if(source == deconnect){
-            launchGUILocal.refreshPane(launchGUILocal.v1);
+            launchGUILocal.refreshPane(guiClientLocal.v1);
         }
         else{
             System.out.println("Error in the MenuPanel file");

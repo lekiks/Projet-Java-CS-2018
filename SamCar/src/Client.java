@@ -210,9 +210,11 @@ public class Client {
 		return validation(this.getMessage());
 	}
 
+
+
 	Client(String address,int port) {
 		this.address = address;
-		this.port=port;
+		this.port = port;
 		//this.serverConnection();
 		//close connection
 	}

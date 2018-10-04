@@ -3,19 +3,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class LoginPanel extends JPanel implements ActionListener {
+public class LoginPanel extends JPanel implements ActionListener, MouseListener {
 
     private JButton connect, signUp;
     private LaunchGUI launchGUILocal;
     private JTextField usernameIn;
     private JPasswordField passwordIn;
+    private Client clientLocal;
+    private GUIClient guiClientLocal;
 
-    LoginPanel(LaunchGUI launchGUI){
+    LoginPanel(LaunchGUI launchGUI, Client client, GUIClient guiClient ){
         this.launchGUILocal = launchGUI;
+        this.clientLocal = client;
+        this.guiClientLocal = guiClient;
 
         //Layout
         setLayout(new BorderLayout());
@@ -36,11 +42,11 @@ public class LoginPanel extends JPanel implements ActionListener {
         add(northV1, BorderLayout.NORTH);
 
         usernameIn = new JTextField("Username", 10);
-        usernameIn.addActionListener(this);
+        usernameIn.addMouseListener(this);
         northV1.add(usernameIn);
 
         passwordIn = new JPasswordField("Password", 10);
-        passwordIn.addActionListener(this);
+        passwordIn.addMouseListener(this);
         northV1.add(passwordIn);
 
         connect = new JButton("Connect");
@@ -52,7 +58,7 @@ public class LoginPanel extends JPanel implements ActionListener {
         add(southV1, BorderLayout.SOUTH);
 
         signUp = new JButton("Sign Up");
-        connect.addActionListener(this);
+        signUp.addActionListener(this);
         southV1.add(signUp);
     }
 
@@ -63,10 +69,45 @@ public class LoginPanel extends JPanel implements ActionListener {
             //Call connection method
 
             //if connection => view3
-            launchGUILocal.refreshPane(launchGUILocal.v3);
+            launchGUILocal.refreshPane(guiClientLocal.v3);
         }
         else if (source == signUp){
-            //Aller vers view2
+            launchGUILocal.refreshPane(guiClientLocal.v2);
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        Object mouseSource = e.getSource();
+
+        if(mouseSource == usernameIn){
+            usernameIn.setText("");
+        }
+        else if(mouseSource == passwordIn){
+            passwordIn.setText("");
+        }
+        else{
+            System.out.println("Error in mouse Listener");
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

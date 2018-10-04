@@ -1,8 +1,8 @@
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,14 +14,18 @@ import javax.swing.JTextField;
 
 public class AdvertCreationPanel extends JPanel implements ActionListener {
 	JTable placeTableau;
-	JButton creeButton;
+	private JButton creeButton, cancelButton;
 	JLabel nbPlacesLabel;
 	JTextField nbPlacesText;
 	JPanel nbPlacePanel;
-	Client client;
+	Client clientLocal;
+	private LaunchGUI launchGUILocal;
+	private GUIClient guiClientLocal;
 
-	AdvertCreationPanel(Client client){
-		this.client = client;
+	AdvertCreationPanel(LaunchGUI launchGUI, Client client, GUIClient guiClient){
+		this.launchGUILocal = launchGUI;
+		this.clientLocal = client;
+		this.guiClientLocal = guiClient;
 		this.setLayout(new BorderLayout());
 
 		//placeTableau=get Open Data
@@ -35,29 +39,40 @@ public class AdvertCreationPanel extends JPanel implements ActionListener {
 
 		this.add(nbPlacePanel,BorderLayout.CENTER);
 
+		//North Panel
+		JPanel northPanel = new JPanel();
+
+		cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(this);
+		northPanel.add(cancelButton);
+
 		creeButton= new JButton("creation");
 		creeButton.addActionListener(this);
+		northPanel.add(creeButton);
 		//associaiton à envoie advert to serveur
-		this.add(creeButton,BorderLayout.NORTH);
+		this.add(northPanel,BorderLayout.NORTH);
 
 	}
 
 	@Override
-	public void ActionListener(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == creeButton) {
-			client.sendIDRequest(2);
+			clientLocal.sendIDRequest(2);
 			Advert advert = new Advert();
 			//advert.setAdEvent(eventFromTable);
 			//advert.setAdCreator();
 			//advert.setCarSize();
-			client.sendAdvert(advert);
-			if (!client.getValidation())
+			clientLocal.sendAdvert(advert);
+			if (!clientLocal.getValidation())
 			{
-				System.out.println("erreur inscription");
+				System.out.println("erreur création");
 			}
 			else {
-				//aller à page connexion
+				launchGUILocal.refreshPane(guiClientLocal.v3);
 			}
+		}
+		else if(e.getSource() == cancelButton){
+			launchGUILocal.refreshPane(guiClientLocal.v3);
 		}
 	}
 

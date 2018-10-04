@@ -46,7 +46,7 @@ public class AdvertChoicePanel extends JPanel implements ActionListener {
 			int tailleListAdvert = client.getInt();
 			
 			for (int i =0; i<tailleListAdvert; i++) {
-				listAdverts.add(client.getAdvert());
+				//listAdverts.add(clientLocal.getAdvert());
 			}
 			if (!client.getValidation())
 			{
@@ -58,7 +58,7 @@ public class AdvertChoicePanel extends JPanel implements ActionListener {
 		}
 		
 		if (e.getSource()==validateButton) {
-			client.sendMessage(advert);
+			//clientLocal.sendMessage(advert);
 		}
 	}
 }
