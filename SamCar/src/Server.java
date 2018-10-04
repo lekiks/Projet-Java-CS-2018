@@ -148,7 +148,7 @@ final public class Server {
     
     private boolean addUser(String adName){
         for(Advert a: listAdverts){
-            if(a.getAddName() == adName){
+            if(a.getAdName() == adName){
                 
             }
         }
