@@ -13,9 +13,6 @@ import java.io.IOException;
 import java.net.* ;
 import java.util.List; 
 
-
-
-
 public class Client {
 
 	public static String VALIDATION = "VALIDATION" ;
@@ -31,7 +28,44 @@ public class Client {
 	UserProfil user;
 	int nbrePlace;
 
+	public void sendIDRequest(int idRequest) {
+		try {
+			output = new DataOutputStream(clientSocket.getOutputStream()) ;
+			output.writeInt(idRequest);
+		}
+		catch (IOException e )
+		{
+			e.printStackTrace();
+		} 
+	}
 
+	public boolean getValidation() {
+		try {
+			input = new DataInputStream(clientSocket.getInputStream()) ;
+			boolean  check = input.readBoolean();
+			return check; 
+		}
+		catch (IOException e )
+		{
+			e.printStackTrace();
+			return false;
+		} 
+	}
+	
+	
+	int getInt() {
+		try {
+			input = new DataInputStream(clientSocket.getInputStream()) ;
+			int msg = input.readInt();
+			return msg; 
+		}
+		catch (IOException e )
+		{
+			e.printStackTrace();
+			return -1;
+		} 
+	}
+	
 	String getMessage() {
 		try {
 			input = new DataInputStream(clientSocket.getInputStream()) ;
@@ -47,7 +81,7 @@ public class Client {
 
 	void sendMessage(String msg) {
 		try {
-			output = new DataOutputStream(clientSocket.getOutputStream()) ;
+			output = new DataOutputStream(clientSocket.getOutputStream());
 			output.writeUTF(msg);
 		}
 		catch (IOException e )
@@ -56,26 +90,54 @@ public class Client {
 		} 
 	}
 
-	void sendUserProfile(UserProfil userProfil){
+
+	public void sendUserProfile(UserProfil userProfil){
 		try {
 			byte [] userProfilSerie = userProfil.serialize();
 			output = new DataOutputStream(clientSocket.getOutputStream());
-			output.write(userProfilSerie,0,userProfilSerie.length); /** Attention ici .size() modifié en .length **/
+			output.write(userProfilSerie,0,userProfilSerie.length);
 		}
 		catch (IOException e )
 		{
 			e.printStackTrace();
 		}
-		//		this.sendMessage(userProfil.getFullName());
-		//		this.sendMessage(userProfil.getEmail());
-		//		this.sendMessage(userProfil.getUsername());
-		//		this.sendMessage(userProfil.getPassword());
-		//		this.sendMessage(userProfil.getAddress());
-		//		this.sendMessage(userProfil.getPhoneNumber());
-		//		this.sendMessage(String.valueOf(userProfil.isConnected()));
-		//		return validation(this.getMessage());
 	}
+	
 
+//	public UserProfil getUserProfile() {
+//		try {
+//			input = new DataInputStream(clientSocket.getInputStream());
+//			return input.readBytes().deserialize();
+//		}
+//		catch (IOException e )
+//		{
+//			e.printStackTrace();
+//		} 
+//	}
+	
+	 public void sendAdvert(Advert advert) {
+			try {
+				byte [] advertSerie = advert.serialize();
+				output = new DataOutputStream(clientSocket.getOutputStream());
+				output.write(advertSerie,0,advertSerie.length);
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+	 }
+	 
+//	 public Advert getAdvert() {
+//			try {
+//				input = new DataInputStream(clientSocket.getInputStream());
+//				return input.readAllBytes().deserializable();
+//			}
+//			catch (IOException e )
+//			{
+//				e.printStackTrace();
+//			} 
+//	 }
+	 
 	void serverConnection() {
 		try
 		{
@@ -151,7 +213,7 @@ public class Client {
 	Client(String address,int port) {
 		this.address = address;
 		this.port=port;
-		this.serverConnection();
+		//this.serverConnection();
 		//close connection
 	}
 }
