@@ -18,6 +18,7 @@ public class UserProfil implements SerializableSC, Serializable{
      
     private String fullName;
     private String email;
+
     private String pseudo;
 
     public String getPseudo() {
@@ -27,9 +28,27 @@ public class UserProfil implements SerializableSC, Serializable{
     public String getPassword() {
         return password;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     private String password;
     private String address;
-    private String identifier;
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    private String username;
     private ImageIcon profilPicture;
     private boolean connected;
     private DataInputStream input;
@@ -57,16 +76,15 @@ public class UserProfil implements SerializableSC, Serializable{
         this.connected = tampon.connected;
         this.email = tampon.email;
         this.fullName = tampon.fullName;
-        this.identifier = tampon.identifier;
+        this.username = tampon.username;
         this.input = tampon.input;
         this.output = tampon.output;
         this.password = tampon.password;
         this.profilPicture = tampon.profilPicture;
-        this.pseudo = tampon.pseudo;
     }
 
     public String getIdentifiant() {
-        return identifier;
+        return username;
     }
 
 }

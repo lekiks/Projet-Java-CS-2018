@@ -25,6 +25,27 @@ public class Advert implements SerializableSC,Serializable {
     public String getAdName() {
         return adName;
     }
+
+    public UserProfil getAdCreator() {
+        return adCreator;
+    }
+
+    public Event getAdEvent() {
+        return adEvent;
+    }
+
+    public boolean isSam() {
+        return sam;
+    }
+
+    public int getCarSize() {
+        return carSize;
+    }
+
+    public List<UserProfil> getAdMembers() {
+        return adMembers;
+    }
+
     private UserProfil adCreator;
 
     public UserProfil getAdCreator() {
