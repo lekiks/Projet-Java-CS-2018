@@ -16,6 +16,11 @@ import java.io.ObjectOutputStream;
 import java.util.*;
 
 public class Advert implements Serializable {
+    private String addName;
+
+    public String getAddName() {
+        return addName;
+    }
     private UserProfil adCreator;
     private Event adEvent;
     private boolean sam;
@@ -23,6 +28,10 @@ public class Advert implements Serializable {
 
 
     private List<UserProfil> adMembers;
+    
+    public boolean checkSize(){
+        return adMembers.size() < carSize;
+    }
 
     @Override
     public byte[] serialize() throws IOException {
