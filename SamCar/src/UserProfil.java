@@ -10,8 +10,12 @@ Data about each users
 // Imports list
 import java.io.*;
 import javax.swing.*;
+import java.io.Serializable;
 
-public class UserProfil implements Serializable{
+public class UserProfil implements SerializableSC, Serializable{
+    
+    private static final long serialVersionUID = 1L;
+     
     private String fullName;
     private String email;
     private String pseudo;

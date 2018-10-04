@@ -14,14 +14,22 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.*;
+import java.io.Serializable;
 
-public class Advert implements Serializable {
+public class Advert implements SerializableSC,Serializable {
+    
+    private static final long serialVersionUID = 1L;
+    
     private String adName;
 
     public String getAdName() {
         return adName;
     }
     private UserProfil adCreator;
+
+    public UserProfil getAdCreator() {
+        return adCreator;
+    }
     private Event adEvent;
     private boolean sam;
     private int carSize;
@@ -29,6 +37,10 @@ public class Advert implements Serializable {
     
     public boolean checkSize(){
         return adMembers.size() < carSize;
+    }
+    
+    public void addAdMember(UserProfil u){
+        adMembers.add(u);
     }
 
     @Override

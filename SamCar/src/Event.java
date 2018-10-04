@@ -15,7 +15,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.*;
 
-public class Event implements Serializable{
+public class Event implements SerializableSC{
     private String eventName;
     private String adress;
     private String date;
