@@ -148,6 +148,17 @@ public class Client {
 		} 
 	}
 
+	void serverDisconnect(){
+		try{
+			input.close();
+			output.close();
+			clientSocket.close();
+			System.out.println("You are Disconnected");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	boolean validation(String msg) {
 		if (msg == VALIDATION) {
 			return true;
