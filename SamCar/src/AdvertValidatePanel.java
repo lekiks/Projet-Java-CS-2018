@@ -66,7 +66,7 @@ public class AdvertValidatePanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==validateButton) {
-            clientLocal.sendIDRequest(3);
+            clientLocal.sendIDRequest(4);
 
             int tailleListAdvert = clientLocal.getInt();
 

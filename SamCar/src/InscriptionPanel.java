@@ -117,7 +117,6 @@ public class InscriptionPanel extends JPanel implements ActionListener, MouseLis
 
 		//left panel
 
-
 	}
 	
 	@Override
@@ -125,7 +124,9 @@ public class InscriptionPanel extends JPanel implements ActionListener, MouseLis
 		String composant = e.getActionCommand();
 		if( e.getSource() == signUpButton ) {
 			String tempPassword = passwordTextField.getText();
-			if (tempPassword == passwordConfirmTextField.getText()) {
+			System.out.println(tempPassword);
+			System.out.println(passwordConfirmTextField.getText());
+			if (tempPassword.equals(passwordConfirmTextField.getText())) {
 				System.out.println("bouton3 marche");
 				clientLocal.sendIDRequest(1);
 				UserProfil usrProfil = new UserProfil();

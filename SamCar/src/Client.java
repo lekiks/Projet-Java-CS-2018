@@ -30,7 +30,6 @@ public class Client {
 
 	public void sendIDRequest(int idRequest) {
 		try {
-			output = new DataOutputStream(clientSocket.getOutputStream()) ;
 			output.writeInt(idRequest);
 		}
 		catch (IOException e )
@@ -41,7 +40,7 @@ public class Client {
 
 	public boolean getValidation() {
 		try {
-			input = new DataInputStream(clientSocket.getInputStream()) ;
+
 			boolean  check = input.readBoolean();
 			return check; 
 		}
@@ -55,7 +54,6 @@ public class Client {
 	
 	int getInt() {
 		try {
-			input = new DataInputStream(clientSocket.getInputStream()) ;
 			int msg = input.readInt();
 			return msg; 
 		}
@@ -68,7 +66,6 @@ public class Client {
 	
 	String getMessage() {
 		try {
-			input = new DataInputStream(clientSocket.getInputStream()) ;
 			String msg = input.readUTF();
 			return msg; 
 		}
@@ -81,7 +78,6 @@ public class Client {
 
 	void sendMessage(String msg) {
 		try {
-			output = new DataOutputStream(clientSocket.getOutputStream());
 			output.writeUTF(msg);
 		}
 		catch (IOException e )
@@ -94,7 +90,6 @@ public class Client {
 	public void sendUserProfile(UserProfil userProfil){
 		try {
 			byte [] userProfilSerie = userProfil.serialize();
-			output = new DataOutputStream(clientSocket.getOutputStream());
 			output.write(userProfilSerie,0,userProfilSerie.length);
 		}
 		catch (IOException e )
@@ -118,7 +113,7 @@ public class Client {
 	 public void sendAdvert(Advert advert) {
 			try {
 				byte [] advertSerie = advert.serialize();
-				output = new DataOutputStream(clientSocket.getOutputStream());
+
 				output.write(advertSerie,0,advertSerie.length);
 			}
 			catch (IOException e)
@@ -143,6 +138,9 @@ public class Client {
 		{
 			clientSocket= new Socket(address,port);
 			System.out.println("socket créée");
+			input = new DataInputStream(clientSocket.getInputStream()) ;
+			output = new DataOutputStream(clientSocket.getOutputStream());
+
 		}
 		catch (IOException e )
 		{
