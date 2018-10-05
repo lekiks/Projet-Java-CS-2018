@@ -16,6 +16,10 @@ import java.io.ObjectOutputStream;
 import javax.swing.*;
 
 public class Event implements SerializableSC{
+    public String getEventName() {
+        return eventName;
+    }
+
     private String eventName;
     private String adress;
     private String date;

@@ -1,10 +1,13 @@
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,8 +16,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 
-
-public class AdvertCreationPanel extends JPanel implements ActionListener, MouseListener {
+public class AdvertCreationPanel extends JPanel implements ActionListener {
+	int tabCompt=0;
 	JTable placeTableau;
 	private JButton creeButton, cancelButton;
 	private JLabel nbPlacesLabel;
@@ -23,24 +26,51 @@ public class AdvertCreationPanel extends JPanel implements ActionListener, Mouse
 	private Client clientLocal;
 	private LaunchGUI launchGUILocal;
 	private GUIClient guiClientLocal;
+	private JPanel tableau;
+	List<Event> listEvents = new ArrayList<Event>();
+	JButton next = new JButton("next");
+	JButton previous = new JButton("previous");
+
+	JButton button1 =new JButton("choice");
+	JButton button2=new JButton("choice");
+	JButton button3=new JButton("choice");
+	JButton button4=new JButton("choice");
+	JButton button5=new JButton("choice");
+
+
 
 	AdvertCreationPanel(LaunchGUI launchGUI, Client client, GUIClient guiClient){
+
 		this.launchGUILocal = launchGUI;
 		this.clientLocal = client;
 		this.guiClientLocal = guiClient;
+
+
+
+		//request data event
+		clientLocal.sendIDRequest(2);
+
+		int size = 0;
+		try {
+			size = clientLocal.input.readInt();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (int i = 0; i <size;i++) {
+			listEvents.add(clientLocal.getEvent());
+		}
 		this.setLayout(new BorderLayout());
 
-		//placeTableau=get Open Data
+
 
 		nbPlacePanel = new JPanel();
 		nbPlacesLabel = new JLabel("nb places");
 		nbPlacePanel.add(nbPlacesLabel);
 		nbPlacesText = new JTextField("write here");
-		nbPlacesText.addMouseListener(this);
 		nbPlacePanel.add(nbPlacesText);
 
-
-		this.add(nbPlacePanel,BorderLayout.CENTER);
+		this.add(nbPlacePanel,BorderLayout.WEST);
 
 		//North Panel
 		JPanel northPanel = new JPanel();
@@ -49,62 +79,127 @@ public class AdvertCreationPanel extends JPanel implements ActionListener, Mouse
 		cancelButton.addActionListener(this);
 		northPanel.add(cancelButton);
 
-		creeButton= new JButton("creation");
-		creeButton.addActionListener(this);
-		northPanel.add(creeButton);
-		//associaiton à envoie advert to serveur
+
+
 		this.add(northPanel,BorderLayout.NORTH);
+
+
+
+
+
+		button1.setText(listEvents.get(0).getEventName());
+		button2.setText(listEvents.get(1).getEventName());
+		button3.setText(listEvents.get(2).getEventName());
+		button4.setText(listEvents.get(3).getEventName());
+		button5.setText(listEvents.get(4).getEventName());
+
+		this.add(button1,BorderLayout.CENTER);
+		this.add(button2,BorderLayout.CENTER);
+		this.add(button3,BorderLayout.CENTER);
+		this.add(button4,BorderLayout.CENTER);
+		this.add(button5,BorderLayout.CENTER);
+
+
+
+		next.addActionListener(this);
+		previous.addActionListener(this);
+		this.add(next, BorderLayout.SOUTH);
+		this.add(previous, BorderLayout.SOUTH);
+
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == creeButton) {
-			clientLocal.sendIDRequest(2);
-			Advert advert = new Advert();
-			//advert.setAdEvent(eventFromTable);
-			//advert.setAdCreator();
-			//advert.setCarSize();
-			clientLocal.sendAdvert(advert);
-			if (!clientLocal.getValidation())
-			{
-				System.out.println("erreur création");
-			}
-			else {
-				launchGUILocal.refreshPane(guiClientLocal.v3);
-			}
-		}
-		else if(e.getSource() == cancelButton){
+		//		if (e.getSource() == creeButton) {
+		//			clientLocal.sendIDRequest(2);
+		//			Advert advert = new Advert();
+		//			//advert.setAdEvent(eventFromTable);
+		//			//advert.setAdCreator();
+		//			//advert.setCarSize();
+		//			//clientLocal.sendAdvert(advert);
+		//			if (!clientLocal.getValidation())
+		//			{
+		//				System.out.println("erreur création");
+		//			}
+		//			else {
+		//				launchGUILocal.refreshPane(guiClientLocal.v3);
+		//			}
+		//		}
+		if(e.getSource() == cancelButton){
 			launchGUILocal.refreshPane(guiClientLocal.v3);
 		}
-	}
 
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		Object mouseSource = e.getSource();
-		if (mouseSource == nbPlacesText){
-			nbPlacesText.setText("");
+		if (e.getSource() == button1) {
+			try {
+				clientLocal.output.writeUTF(button1.getText());
+				clientLocal.output.writeUTF(nbPlacesText.getText());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
+
+		if (e.getSource() == button2) {
+			try {
+				clientLocal.output.writeUTF(button2.getText());
+				clientLocal.output.writeUTF(nbPlacesText.getText());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		}
+		if (e.getSource() == button3) {
+			try {
+				clientLocal.output.writeUTF(button3.getText());
+				clientLocal.output.writeUTF(nbPlacesText.getText());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		}
+		if (e.getSource() == button4) {
+			try {
+				clientLocal.output.writeUTF(button4.getText());
+				clientLocal.output.writeUTF(nbPlacesText.getText());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		}
+		if (e.getSource() == button5) {
+
+			try {
+				clientLocal.output.writeUTF(button5.getText());
+				clientLocal.output.writeUTF(nbPlacesText.getText());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			if (e.getSource()== next) {
+				tabCompt +=1;
+				button1.setText(listEvents.get(0+tabCompt).getEventName());
+				button2.setText(listEvents.get(1+tabCompt).getEventName());
+				button3.setText(listEvents.get(2+tabCompt).getEventName());
+				button4.setText(listEvents.get(3+tabCompt).getEventName());
+				button5.setText(listEvents.get(4+tabCompt).getEventName());
+				this.repaint();}
+
+		}
+		if (e.getSource()== previous) {
+			tabCompt -=1;
+			button1.setText(listEvents.get(0+tabCompt).getEventName());
+			button2.setText(listEvents.get(1+tabCompt).getEventName());
+			button3.setText(listEvents.get(2+tabCompt).getEventName());
+			button4.setText(listEvents.get(3+tabCompt).getEventName());
+			button5.setText(listEvents.get(4+tabCompt).getEventName());
+			this.repaint();}
 	}
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-
-	}
 }
+
+
+
