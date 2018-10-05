@@ -103,27 +103,42 @@ final public class Server {
         /* acknowledgement(true,output); */
             break;
 	case 2:
+	        output.writeInt(listEvents.size());
+            for(Event e: listEvents){
+                output.writeInt(e.serialize().length);
+                output.write(e.serialize(), 0, e.serialize().length);
+             }
             Advert ad = new Advert();
-            byte[] by = null;
-            int i1 = 0;
-            i1 = input.read(by);
+            int length2 = input.readInt();
+            byte[] b2 = new byte[length2];
+            int i2 = 0;
+            i2 = input.read(b2, 0, b2.length);
             try {
-                ad.deserialize(by);
+                ad.deserialize(b2);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
             }
-            acknowledgement(true,output);
+            listAdverts.add(ad);
             break;
 	case 3:
             output.writeInt(listAdverts.size());
             for(Advert a: listAdverts){
                 if(a.checkSize()){
+                    output.writeInt(a.serialize().length);
                     output.write(a.serialize(), 0, a.serialize().length);
                 }
             }
-            String eventChose = null;
-            eventChose = input.readUTF();
-            acknowledgement(addUser(eventChose,user),output);
+            Advert ad3 = new Advert();
+            int length3 = input.readInt();
+            byte[] b3 = new byte[length3];
+            int i3 = 0;
+            i3 = input.read(b3, 0, b3.length);
+            try {
+                ad3.deserialize(b3);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            addUser(ad3,user);
             break;
 	case 4:
             List<Advert> userAdds = addsOwner(user);
@@ -133,9 +148,8 @@ final public class Server {
             }
             acknowledgement(true,output);
             break;
-	case 5:
-			//eventCreate();
-    }
+
+        }
     }
     
     private void addAdvert(Advert ad){
@@ -170,14 +184,12 @@ final public class Server {
         return false;
     }
     
-    private boolean addUser(String adName, UserProfil user){
+    private void addUser(Advert ad, UserProfil user){
         for(Advert a: listAdverts){
-            if(a.getAdName().equals(adName)){
+            if(a == ad){
                 a.addAdMember(user);
-                return true;
             }
         }
-        return false;
     }
     
     private void acknowledgement(boolean condition, DataOutputStream output){
