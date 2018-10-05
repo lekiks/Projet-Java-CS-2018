@@ -45,7 +45,7 @@ public class GUIClient extends JPanel implements ActionListener, MouseListener {
 		//end of connection data
 
 		client = new Client(address,port);
-		//client.serverConnection();
+		client.serverConnection();
 
 		/**
 		 * On déclare ici toutes les views entre lesquels nous allons switcher
@@ -122,7 +122,7 @@ public class GUIClient extends JPanel implements ActionListener, MouseListener {
 
 		System.out.println(username);
 		System.out.println(password);
-		//client.identification(username,password);
+		client.identification(username,password);
 		
 	}
 

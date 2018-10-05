@@ -74,7 +74,7 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
 
         System.out.println(username);
         System.out.println(password);
-        //clientLocal.identification(username,password);
+        clientLocal.identification(username,password);
 
     }
 

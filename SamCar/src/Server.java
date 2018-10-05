@@ -38,7 +38,7 @@ final public class Server {
             sock = new ServerSocket(port);
             while (currentClientNumber < maximumClientNumber) {
                 Socket socket = sock.accept();
-                System.out.println("ma bite");
+                System.out.println("client co");
                 currentClientNumber ++;
                 Thread th = new Thread(() -> {clientFlow(socket);});
                 th.start();
@@ -99,6 +99,7 @@ final public class Server {
             }
             output.writeBoolean(true);
             output.flush();
+            System.out.println("cc ça marche");
             //acknowledgement(true,output);
             break;
 	case 2:
