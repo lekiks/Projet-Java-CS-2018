@@ -33,7 +33,7 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
 
         BufferedImage myPicture = null;
         try {
-            myPicture = ImageIO.read(new File("/logo_samcar.jpg"));
+            myPicture = ImageIO.read(new File("/Users/hadrienjanicot/logo_samcar.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -65,7 +65,7 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
         southV1.add(signUp);
     }
 
-    void identification() {
+    boolean identification() {
 
         //data from GUI
         username = usernameIn.getText();
@@ -74,7 +74,7 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
 
         System.out.println(username);
         System.out.println(password);
-        clientLocal.identification(username,password);
+        return clientLocal.identification(username,password);
 
     }
 
@@ -82,10 +82,11 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == connect){
-            identification();
-
-            //if connection => view3
-            launchGUILocal.refreshPane(guiClientLocal.v3);
+            if (identification()) {
+                launchGUILocal.refreshPane(guiClientLocal.v3);
+            }else{
+                launchGUILocal.refreshPane(guiClientLocal.v1);
+            }
         }
         else if (source == signUp){
             launchGUILocal.refreshPane(guiClientLocal.v2);

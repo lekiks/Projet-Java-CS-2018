@@ -178,7 +178,7 @@ public class Client {
 		this.sendIDRequest(0);
 		this.sendMessage(username);
 		this.sendMessage(password);
-		return validation(this.getMessage());
+		return getValidation();
 	}
 
 	//classe permettant de créé un compte

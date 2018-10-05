@@ -87,7 +87,7 @@ public class InscriptionPanel extends JPanel implements ActionListener, MouseLis
 
 		BufferedImage image = null;
 		try {
-			image = ImageIO.read(new File("/logo_samcar.jpg"));
+			image = ImageIO.read(new File("/Users/hadrienjanicot/logo_samcar.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -139,15 +139,7 @@ public class InscriptionPanel extends JPanel implements ActionListener, MouseLis
 			System.out.println(passwordConfirmTextField.getText());
 			if (tempPassword.equals(passwordConfirmTextField.getText())) {
 				userCreation(tempPassword);
-				
-				if (!clientLocal.getValidation())
-				{
-					System.out.println("erreur inscription");
-				}
-				else {
-					launchGUILocal.refreshPane(guiClientLocal.v1);
-				}
-				
+				launchGUILocal.refreshPane(guiClientLocal.v1);
 			}
 		}
 		else if(e.getSource() == cancelButton){

@@ -100,7 +100,7 @@ final public class Server {
             output.writeBoolean(true);
             output.flush();
             System.out.println("cc ça marche");
-            //acknowledgement(true,output);
+        /* acknowledgement(true,output); */
             break;
 	case 2:
             Advert ad = new Advert();
@@ -162,6 +162,9 @@ final public class Server {
     private boolean connection(String pseudo,String password, UserProfil user){
         for(UserProfil p: listAllUsers){
             user = p;
+            boolean test = p.getPseudo().equals(pseudo);
+            boolean test2 = p.getPassword().equals(password);
+            boolean test3 = test&&test2;
             return (p.getPseudo().equals(pseudo))&&(p.getPassword().equals(password));
         }
         return false;
